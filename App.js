@@ -1,116 +1,90 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+// eslint-disable-next-line prettier/prettier
+import { SafeAreaView, Text, View, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+// import {
+//   Colors,
+//   DebugInstructions,
+//   Header,
+//   LearnMoreLinks,
+//   ReloadInstructions,
+// } from 'react-native/Libraries/NewAppScreen';
 
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+const App = () => {
+  const [text, locationSerch] = React.useState('');
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+    <SafeAreaView>
+      <View>
+        <Text style={styles.title}>CleanMap</Text>
+        <Text style={styles.catch}>깨끗하게!</Text>
+      </View>
+
+      <View>
+        <TextInput
+          style={styles.input}
+          onChangeText={locationSerch}
+          value={text}
+          placeholder="지역명으로 쓰레기통 위치를 검색해보세요!"
+          keyboardType="default"
+        />
+      </View>
+
+      <View style={styles.innerContainer}>
+        <Text style={styles.buttonTop}>분리수거 방법이 궁금하신가요? 🤔</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => Alert.alert('페이지로 이동합니다!')}>
+          <Text style={styles.buttonText}>
+            현재위치의 분리수거 방법을 알아보자
+          </Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  innerContainer: {
+    alignItems: 'center', // 버튼과 텍스트를 수평 중앙에 정렬
+    width: '100%', // 또는 원하는 너비를 설정
+    paddingHorizontal: 20,
+    top: 500,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+
+  title: {
+    fontSize: 25,
+    textAlign: 'center',
+    marginVertical: 8,
   },
-  highlight: {
-    fontWeight: '700',
+  catch: {
+    fontSize: 15,
+    textAlign: 'center',
+    marginVertical: 8,
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: 'skyblue', // 배경 색상
+    padding: 10,
+    borderRadius: 5,
+    width: 300, // 버튼의 너비를 설정
+  },
+  buttonTop: {
+    fontSize: 15,
+    textAlign: 'center',
+    marginVertical: 8,
+  },
+  buttonText: {
+    alignItems: 'center',
+    color: '#fff', // 텍스트 색상
+    fontSize: 16,
   },
 });
 
